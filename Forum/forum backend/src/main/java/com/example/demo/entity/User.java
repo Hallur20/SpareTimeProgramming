@@ -1,9 +1,5 @@
 package com.example.demo.entity;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="User")
@@ -16,7 +12,10 @@ public class User {
     private String userName;
     private String email;
     private String password;
-    private long roleId;
+
+    @ManyToOne
+    @JoinColumn(name="roleId")
+    private Role role;
 
     public long getId() {
         return id;
@@ -48,13 +47,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
     }
 }

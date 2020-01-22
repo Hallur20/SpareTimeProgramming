@@ -1,9 +1,6 @@
 package com.example.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Comment")
@@ -13,7 +10,9 @@ public class Comment {
     @GeneratedValue
     private long id;
 
-    private long postId;
+    @ManyToOne
+    @JoinColumn(name="postId")
+    private Post post;
     private String description;
     private Long replyTo;
 
@@ -23,14 +22,6 @@ public class Comment {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getPostId() {
-        return postId;
-    }
-
-    public void setPostId(long postId) {
-        this.postId = postId;
     }
 
     public String getDescription() {

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,12 @@ public class UserController {
     @GetMapping("/all")
     public List<User> findAllUsers(){
         return userRepository.findAll();
+    }
+
+    @GetMapping("/mix")
+    public User findAllAdminUsers(){
+        Role role = new Role();
+        role.setId(1L);
+        return userRepository.findByRole(role);
     }
 }

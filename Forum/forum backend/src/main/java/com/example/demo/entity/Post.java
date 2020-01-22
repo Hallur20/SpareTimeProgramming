@@ -1,9 +1,6 @@
 package com.example.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Post")
@@ -13,7 +10,10 @@ public class Post {
     @GeneratedValue
     private Long id;
 
-    private Long topicId;
+    @ManyToOne
+    @JoinColumn(name="topicId")
+    private Topic topic;
+
     private String title;
     private String description;
     private boolean isLocked;
@@ -24,14 +24,6 @@ public class Post {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getTopicId() {
-        return topicId;
-    }
-
-    public void setTopicId(Long topicId) {
-        this.topicId = topicId;
     }
 
     public String getTitle() {
