@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String userName;
@@ -16,6 +16,14 @@ public class User {
     @ManyToOne
     @JoinColumn(name="roleId")
     private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public long getId() {
         return id;

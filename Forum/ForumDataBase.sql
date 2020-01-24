@@ -10,7 +10,7 @@ id int NOT NULL AUTO_INCREMENT,
 userName varchar(100),
 email varchar(170),
 password varchar(100),
-roleId int,
+roleId int NOT NULL,
 primary key(id),
 foreign key (roleId) references Role(id)
 );
@@ -24,17 +24,17 @@ primary key (id)
 
 create table Post(
 id int NOT NULL AUTO_INCREMENT,
-topicId int,
+topicId int NOT NULL,
 title varchar(100),
 description varchar(5000),
-isLocked bool,
+isLocked bool NOT NULL,
 primary key (id),
 foreign key (topicId) references Topic(id)
 );
 
 create table Comment(
 id int NOT NULL AUTO_INCREMENT,
-postId int,
+postId int NOT NULL,
 description varchar(400),
 replyTo int,
 primary key(id),

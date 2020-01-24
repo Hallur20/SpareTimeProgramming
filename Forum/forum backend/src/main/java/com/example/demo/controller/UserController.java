@@ -2,11 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
+import com.example.demo.logic.UserLogic;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,10 +13,12 @@ import java.util.List;
 @RequestMapping(path = "api/users")
 public class UserController {
     private UserRepository userRepository;
+    private UserLogic userLogic;
 
     @Autowired
     public UserController(UserRepository userRepository){
         this.userRepository = userRepository;
+        this.userLogic = new UserLogic();
     }
 
     @GetMapping("/test")
@@ -30,10 +31,22 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/mix")
-    public User findAllAdminUsers(){
+    @GetMapping("/admin")
+    public List<User> findUsersByRole(){
         Role role = new Role();
-        role.setId(1L);
+        role.setId(3L);
+        
         return userRepository.findByRole(role);
+    }
+
+    @GetMapping("/email/{emailName}")
+    public List<User> findUsersByEmail(@PathVariable String emailName){
+        return userRepository.findByEmail(emailName);
+    }
+
+    //http://localhost:8080/api/users/create?userName=test&email=test&password=123&roleName=admin
+    @PostMapping("/create")
+    public User createUser(@RequestParam String userName, String email, String password, String roleName){
+        return userLogic.createUser(userName, email, password, roleName, userRepository);
     }
 }
