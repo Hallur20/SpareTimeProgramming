@@ -49,4 +49,9 @@ public class UserController {
     public User createUser(@RequestParam String userName, String email, String password, String roleName){
         return userLogic.createUser(userName, email, password, roleName, userRepository);
     }
+    //http://localhost:8080/api/users/login?userNameOrEmail=test&password=123
+    @PostMapping("/login")
+    public boolean login(@RequestParam String userNameOrEmail, String password){
+        return userLogic.userLogin(userNameOrEmail, password, userRepository);
+    }
 }

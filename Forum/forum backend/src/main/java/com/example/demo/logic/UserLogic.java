@@ -28,7 +28,18 @@ public class UserLogic implements UserLogicInterface{
 
     @Override
     public boolean userLogin(String userNameOrEmail, String password, UserRepository userRepository) {
-        return false;
+        boolean successLogin = false;
+        for (User user: userRepository.findAll()){
+            if(user.getUserName() == null || user.getEmail() == null || user.getPassword() == null){
+                continue;
+            }
+            if((user.getUserName().equals(userNameOrEmail) || user.getEmail().equals(userNameOrEmail))
+                    && user.getPassword().equals(password)){
+                successLogin = true;
+                break;
+            }
+        }
+        return successLogin;
     }
 
     @Override
