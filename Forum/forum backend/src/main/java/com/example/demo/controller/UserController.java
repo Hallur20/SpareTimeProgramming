@@ -26,6 +26,7 @@ public class UserController {
         return "hello world";
     }
 
+    @CrossOrigin(origins = "${frontend}")
     @GetMapping("/all")
     public List<User> findAllUsers(){
         return userRepository.findAll();
