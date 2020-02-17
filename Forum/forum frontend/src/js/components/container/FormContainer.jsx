@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import Input from "../presentational/Input.jsx";
+import {allUsers} from '../UsersLogic';
+import '../style.css'
 var network = require("../Networking.js");
 class FormContainer extends Component {
   constructor() {
     super();
     this.state = {
+      users: []
     }
   }
 
 
-  componentDidMount(){
-      fetch(network.url + "api/users/all")
-      .then((res)=>{return res.json()})
-      .then((json)=>{console.log(json);})
-      .catch((err)=>{console.log(err)})
+  async componentDidMount() {
+    let data = await allUsers;
+
+    console.log(data);
+    this.setState({users : data});
   }
 
   handleChange(event) {
@@ -23,13 +25,12 @@ class FormContainer extends Component {
   render() {
     const { seo_title } = this.state;
     return (
-<div>
-       here {network.url}
-       </div>
+      <div>
+        {this.state.users.map((data) => <p key={data.id}>{data.id} {data.userName} {data.email} {data.password} {data.role.type}</p>)}
+      </div>
     );
   }
 }
 export default FormContainer;
-
 const wrapper = document.getElementById("create-article-form");
 wrapper ? ReactDOM.render(<FormContainer />, wrapper) : false;
