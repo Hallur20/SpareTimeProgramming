@@ -1,20 +1,31 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { allTopics } from '../data/TopicsLogic';
+import {Link} from 'react-router-dom';
 
 class Sidebar extends Component {
-    render() {
-      return (
-          <div>
-            <div className="sidenav">
-                <h3>topics</h3>
-                <input placeholder='search'/>
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#clients">Clients</a>
-  <a href="#contact">Contact</a>
-</div>
-          </div>
-      );
-    }
+
+  constructor() {
+    super();
+    this.state = { topics: [] };
   }
-  
-  export default Sidebar;
+
+  async componentDidMount() {
+    const topicsFetched = await allTopics;
+    console.log(topicsFetched);
+    this.setState({ topics: topicsFetched });
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="sidenav">
+          <h3>topics</h3>
+          <input placeholder='search' />
+          {this.state.topics.map((item, index) => { return <Link replace={true} to={'/posts/' + item.title} key={index}>{item.title}</Link> })}
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Sidebar;

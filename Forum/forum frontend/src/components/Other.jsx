@@ -3,15 +3,14 @@ import { allUsers } from '../data/UsersLogic';
 
 class Other extends Component {
 
-  constructor(){ 
-    super();
+  constructor(props){ 
+    super(props);
     this.state = {users : []}
   }
 
 
   async componentDidMount() {
     let data = await allUsers;
-
     console.log(data);
     this.setState({ users: data });
   }
