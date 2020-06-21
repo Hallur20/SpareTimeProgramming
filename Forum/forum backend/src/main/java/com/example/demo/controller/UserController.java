@@ -40,19 +40,24 @@ public class UserController {
         return userRepository.findByRole(role);
     }
 
-    @GetMapping("/email/{emailName}")
-    public List<User> findUsersByEmail(@PathVariable String emailName){
-        return userRepository.findByEmail(emailName);
-    }
-
     //http://localhost:8080/api/users/create?userName=test&email=test&password=123&roleName=admin
     @PostMapping("/create")
     public User createUser(@RequestParam String userName, String email, String password, String roleName){
         return userLogic.createUser(userName, email, password, roleName, userRepository);
     }
     //http://localhost:8080/api/users/login?userNameOrEmail=test&password=123
+    @CrossOrigin(origins = "${frontend}")
     @PostMapping("/login")
-    public boolean login(@RequestParam String userNameOrEmail, String password){
-        return userLogic.userLogin(userNameOrEmail, password, userRepository);
+    public User login(@RequestParam String userNameOrEmail, String password){
+        boolean success = userLogic.userLogin(userNameOrEmail, password, userRepository);
+        if(success == true){
+            if(userRepository.findByEmail(userNameOrEmail) != null){
+                return userRepository.findByEmail(userNameOrEmail);
+            }
+            if(userRepository.findByUserName(userNameOrEmail) != null){
+                return userRepository.findByUserName(userNameOrEmail);
+            }
+        }
+        return null;
     }
 }

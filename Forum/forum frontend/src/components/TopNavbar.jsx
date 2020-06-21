@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
 
 class TopNavbar extends Component {
+    constructor(){
+        super();
+        this.state = {userLoggedIn : {}}
+    }
+
+componentDidMount(){
+    console.log(this.props.userLoggedIn);
+   
+    if( Object.keys(this.props.userLoggedIn).length === 0 && this.props.userLoggedIn.constructor === Object){
+        console.log("empty objectttt");
+        this.setState({userLoggedIn : {}});
+    } else {
+
+    }
+}
+
     render() {
         return (
             <div className='topNav'>
@@ -14,7 +30,7 @@ class TopNavbar extends Component {
                             
                         </ul>
                         <span className="navbar-text">
-                            logged in as : test
+        logged in as : {this.props.userLoggedIn.email}
                         </span>
                     </div>
                     

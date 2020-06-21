@@ -120,6 +120,10 @@ body {
     opacity: 1;
   }
 
+  #postBorder{
+    border : dotted;
+  }
+
   #container{
       margin-left: 10%;
       margin-right: 10%;

@@ -5,7 +5,9 @@ class Post extends React.Component{
 
     constructor(){
         super();
-        this.state = {post : {}};
+        this.state = {post : {
+            topic: {}
+        }};
     }
 
     async componentDidMount(){
@@ -16,9 +18,12 @@ class Post extends React.Component{
 
     render(){
         return(<div>
-            {this.state.post.title}<br/>
-            {this.state.post.description}<br/>
-            {this.state.post.locked}<br/>
+            <div id="postBorder">
+            title:{this.state.post.title}<br/>
+            description:{this.state.post.description}<br/>
+            is locked:{"" + this.state.post.locked}<br/>
+            topic:{this.state.post.topic.title}
+            </div>
         </div>);
     }
 }

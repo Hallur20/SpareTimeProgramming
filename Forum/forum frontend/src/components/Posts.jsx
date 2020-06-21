@@ -33,7 +33,7 @@ static getDerivedStateFromProps(nextProps, prevState){
     render() {
         return (
             <div>
-                <p>topic choice: {this.props.match.params.topic}</p>
+        <p>posts on {this.props.match.params.topic}:</p>
                 {this.state.posts.map((item, index) => { return <Link to={'/post/'+item.title} key={index}>{item.title}</Link> })}
             </div>
         );

@@ -9,28 +9,30 @@ import Sidebar from './Sidebar.jsx'
 import ChatFooter from './ChatFooter.jsx';
 import Posts from './Posts.jsx';
 import Post from './Post.jsx'
+import {login} from '../data/UsersLogic';
 
 export default class Root extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      userLoginStatus : false, userLoggedIn : {}
     }
   }
 
-
-
-
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+  async componentDidMount(){
+    const userByLogin = await login('aaKarl', '123');
+    if(userByLogin !== null){
+      this.setState({userLoginStatus : true, userLoggedIn : userByLogin});
+    }
   }
+
   render() {
-    const { seo_title } = this.state;
     return (
       <div>
-        <TopNavbar />
+        <TopNavbar userLoggedIn={this.state.userLoggedIn}/>
         <SecondTopNavbar />
         <Sidebar />
+        {this.state.userLoginStatus + ""}
         <div className='content'>
           
             <Switch>
